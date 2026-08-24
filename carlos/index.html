@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlos Franco | Fyware</title>
+<meta name="description" content="Carlos Franco, Founder &amp; CEO en Fyware. Soluciones inmersivas VR y AR para entrenamiento industrial.">
+<meta property="og:title" content="Carlos Franco | Fyware">
+<meta property="og:description" content="Founder &amp; CEO en Fyware. Prepared for reality.">
+<meta property="og:image" content="https://otfy.github.io/fyware-tarjetas/carlos/img/carlos.jpg">
+<meta property="og:url" content="https://otfy.github.io/fyware-tarjetas/carlos/">
+<meta property="og:type" content="profile">
+<meta name="theme-color" content="#111111">
+<link rel="icon" type="image/png" href="img/fy-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111111;
+    --panel: #1c1f1f;
+    --panel-2: #2b2e2e;
+    --text: #ffffff;
+    --muted: #a3a3a3;
+    --accent: #e83833;
+    --whatsapp: #25d366;
+    --ring: rgba(56, 132, 255, 0.35);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -10%, rgba(30, 90, 190, 0.25), transparent 60%),
+      radial-gradient(ellipse 70% 40% at 50% 115%, rgba(232, 56, 51, 0.12), transparent 60%);
+    background-attachment: fixed;
+  }
+  .card {
+    width: 100%;
+    max-width: 430px;
+    padding: 40px 22px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .photo-wrap {
+    width: 178px;
+    height: 178px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 3px rgba(255,255,255,0.06),
+      0 0 44px 6px var(--ring),
+      0 18px 40px rgba(0,0,0,0.55);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  h1 {
+    margin-top: 22px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  .role {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+  }
+  .company {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+  .company .wordmark { width: 148px; height: auto; display: inline-block; margin-bottom: 8px; }
+  .divider {
+    width: 44px; height: 3px; border-radius: 2px;
+    background: var(--accent);
+    margin: 22px auto 6px;
+  }
+  .buttons {
+    width: 100%;
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 15.5px;
+    font-weight: 600;
+    transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn:hover { background: var(--panel-2); border-color: rgba(255,255,255,0.16); }
+  .btn .ico {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.07);
+  }
+  .btn .ico svg { width: 21px; height: 21px; fill: #ffffff; }
+  .btn .label { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+  .btn .label small { font-size: 12px; font-weight: 400; color: var(--muted); }
+  .btn-save { background: var(--accent); border-color: var(--accent); }
+  .btn-save:hover { background: #f24a45; border-color: #f24a45; }
+  .btn-save .ico { background: rgba(255,255,255,0.16); }
+  .btn-save .label small { color: rgba(255,255,255,0.85); }
+  .btn-wa .ico { background: var(--whatsapp); }
+  .btn-wa .ico svg { fill: #ffffff; }
+  .section-label {
+    width: 100%;
+    margin-top: 26px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding-left: 4px;
+  }
+  footer {
+    margin-top: 38px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  footer img { width: 34px; height: auto; opacity: 0.55; filter: brightness(3.2); }
+  footer p { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: #e6e6e6; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="photo-wrap">
+      <img src="img/carlos.jpg" alt="Foto de Carlos Franco">
+    </div>
+    <h1>Carlos Franco</h1>
+    <p class="role">Founder &amp; CEO</p>
+    <p class="company"><img class="wordmark" src="img/fyware-logo-white.png" alt="FYWARE"><br>Prepared for reality. Soluciones inmersivas VR y AR para la industria.</p>
+    <div class="divider"></div>
+
+    <div class="buttons">
+      <a class="btn btn-save" href="carlos-franco.vcf" download="Carlos-Franco-Fyware.vcf">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 15.575c-.183 0-.358-.073-.487-.202l-4.5-4.5a.687.687 0 1 1 .974-.973l3.325 3.326V2.687a.688.688 0 0 1 1.376 0v10.539l3.325-3.326a.687.687 0 1 1 .974.973l-4.5 4.5a.687.687 0 0 1-.487.202Zm9 1.8v2.937A2.69 2.69 0 0 1 18.312 23H5.688A2.69 2.69 0 0 1 3 20.312v-2.937a.688.688 0 0 1 1.375 0v2.937c0 .724.589 1.313 1.313 1.313h12.624c.724 0 1.313-.589 1.313-1.313v-2.937a.688.688 0 0 1 1.375 0Z"/></svg>
+        </span>
+        <span class="label">Guardar contacto<small>Agrega mis datos a tu teléfono</small></span>
+      </a>
+
+      <a class="btn btn-wa" href="https://wa.me/5214448499991?text=Hola%20Carlos%2C%20escane%C3%A9%20tu%20QR%20y%20me%20gustar%C3%ADa%20platicar%20contigo." target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </span>
+        <span class="label">WhatsApp<small>+52 1 444 849 9991</small></span>
+      </a>
+
+      <a class="btn" href="mailto:carlos.franco@fyware.com">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-.4 2L12 11.88 4.4 6h15.2ZM4 18V7.25l7.4 5.73a1 1 0 0 0 1.2 0L20 7.25V18H4Z"/></svg>
+        </span>
+        <span class="label">Correo<small>carlos.franco@fyware.com</small></span>
+      </a>
+
+      <a class="btn" href="https://www.linkedin.com/in/carlosfy/" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </span>
+        <span class="label">LinkedIn<small>Carlos Franco</small></span>
+      </a>
+
+      <p class="section-label">Conoce Fyware</p>
+
+      <a class="btn" href="https://www.fyware.com/es/" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.93 9h-3.02a15.65 15.65 0 0 0-1.27-5.54A8.03 8.03 0 0 1 19.93 11ZM12 4.04c.83 1.2 1.7 3.33 1.9 6.96h-3.8c.2-3.63 1.07-5.76 1.9-6.96ZM8.36 5.46A15.65 15.65 0 0 0 7.09 11H4.07a8.03 8.03 0 0 1 4.29-5.54ZM4.07 13h3.02c.14 2.08.58 3.94 1.27 5.54A8.03 8.03 0 0 1 4.07 13ZM12 19.96c-.83-1.2-1.7-3.33-1.9-6.96h3.8c-.2 3.63-1.07 5.76-1.9 6.96Zm3.64-1.42A15.65 15.65 0 0 0 16.91 13h3.02a8.03 8.03 0 0 1-4.29 5.54Z"/></svg>
+        </span>
+        <span class="label">Sitio web<small>fyware.com</small></span>
+      </a>
+
+      <a class="btn" href="https://www.facebook.com/fyware" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+        </span>
+        <span class="label">Facebook<small>@fyware</small></span>
+      </a>
+
+      <a class="btn" href="https://www.instagram.com/fyware_xr/" target="_blank" rel="noopener">
+        <span class="ico">
+          <svg viewBox="0 0 24 24"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
+        </span>
+        <span class="label">Instagram<small>@fyware_xr</small></span>
+      </a>
+    </div>
+
+    <footer>
+      <img src="img/fy-logo.png" alt="Fyware">
+      <p><a href="https://www.fyware.com/es/" target="_blank" rel="noopener">fyware.com</a> | Prepared for reality</p>
+    </footer>
+  </main>
+</body>
+</html>

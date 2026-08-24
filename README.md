@@ -8,6 +8,7 @@ Tarjetas de presentacion digitales del equipo Fyware, pensadas para usarse con u
 |---|---|---|
 | Hector Rodriguez | Business Developer | https://otfy.github.io/fyware-tarjetas/hector/ |
 | Jaime Dodero | Business Developer | https://otfy.github.io/fyware-tarjetas/jaime/ |
+| Carlos Franco | Founder & CEO | https://otfy.github.io/fyware-tarjetas/carlos/ |
 
 ## Como agregar una tarjeta nueva
 
