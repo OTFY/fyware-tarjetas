@@ -162,7 +162,8 @@
   .photo-wrap { position: relative; overflow: hidden; cursor: pointer;
     transition: background-color .5s ease; }
   .photo-wrap.es-logo { background: #1c1f1f; }
-  .mosaico-foto { position: absolute; inset: 0; }
+  .mosaico-foto { position: absolute; inset: 0; transition: opacity .25s ease; }
+  .photo-wrap.en-reposo .mosaico-foto { opacity: 0; }
   .mosaico-foto b {
     position: absolute; left: 0; top: 0; display: block;
     background-image: url("img/carlos.jpg"); background-size: 178px 178px;
@@ -293,7 +294,7 @@
     var nitido = document.createElement("img");
     nitido.className = "logo-final"; nitido.alt = ""; nitido.src = LOGO;
     wrap.appendChild(nitido);
-    foto.style.visibility = "hidden";
+    wrap.classList.add("en-reposo");
     destino(piezas, caja);
   }
 
@@ -343,10 +344,16 @@
       if(fundido){ clearTimeout(fundido); fundido = null; }
       wrap.classList.toggle("es-logo", enLogo);
       if(enLogo){
+        wrap.classList.remove("en-reposo");
+        foto.style.visibility = "hidden";
         // 800 ms de vuelo + el mayor escalonado (~300 ms): despues, el logo nitido encima
         fundido = setTimeout(function(){ wrap.classList.add("logo-nitido"); }, quieto ? 0 : 1150);
       }else{
         wrap.classList.remove("logo-nitido");
+        fundido = setTimeout(function(){
+          foto.style.visibility = "";
+          wrap.classList.add("en-reposo");
+        }, quieto ? 0 : 1150);
       }
       wrap.setAttribute("aria-label", enLogo ? "Logo de Fyware. Toca para ver la foto" : "Foto. Toca para ver el logo de Fyware");
       for(var i = 0; i < piezas.length; i++){
