@@ -158,14 +158,14 @@
   footer a:hover { color: #e6e6e6; }
   /* Foto en mosaico: cada pieza carga un pedazo de la foto y sabe volar a su
      lugar dentro del isotipo. Sin JS, la <img> de siempre sigue ahi. */
-  .photo-wrap { position: relative; overflow: hidden; cursor: pointer;
+  .photo-wrap { position: relative; overflow: hidden; cursor: pointer; touch-action: manipulation;
     transition: background-color .5s ease; }
   .photo-wrap.es-logo { background: #1c1f1f; }
   .mosaico-foto { position: absolute; inset: 0; transition: opacity .25s ease; }
   .photo-wrap.en-reposo .mosaico-foto { opacity: 0; }
   .foto-pista {
     margin: 10px 0 -8px; font-size: 11px; letter-spacing: 0.04em;
-    color: var(--muted); text-align: center; cursor: pointer;
+    color: var(--muted); text-align: center; cursor: pointer; touch-action: manipulation;
     user-select: none; -webkit-user-select: none; opacity: .8;
   }
   .mosaico-foto b {
@@ -174,7 +174,6 @@
     background-repeat: no-repeat;
     transition: transform .8s cubic-bezier(.22,.68,.24,1),
                 background-color .45s ease, opacity .4s ease;
-    will-change: transform;
   }
   .photo-wrap img.logo-final {
     position: absolute; left: 12%; top: 12%; width: 76%; height: 76%;
@@ -266,7 +265,7 @@
   var foto = wrap && wrap.querySelector("img");
   if(!wrap || !foto) return;
 
-  var LADO = 178, N = 32, paso = LADO / N, pista = null;
+  var LADO = 178, N = 20, paso = LADO / N, pista = null;
   var L_OFF = LADO * 0.12, L_TAM = LADO * 0.76;   // mismo 12% / 76% que .logo-final
 
   function rebanadaFoto(p){
