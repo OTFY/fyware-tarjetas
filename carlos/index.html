@@ -164,6 +164,11 @@
   .photo-wrap.es-logo { background: #1c1f1f; }
   .mosaico-foto { position: absolute; inset: 0; transition: opacity .25s ease; }
   .photo-wrap.en-reposo .mosaico-foto { opacity: 0; }
+  .foto-pista {
+    margin: 10px 0 -8px; font-size: 11px; letter-spacing: 0.04em;
+    color: var(--muted); text-align: center; cursor: pointer;
+    user-select: none; -webkit-user-select: none; opacity: .8;
+  }
   .mosaico-foto b {
     position: absolute; left: 0; top: 0; display: block;
     background-image: url("img/carlos.jpg"); background-size: 178px 178px;
@@ -263,7 +268,7 @@
   var foto = wrap && wrap.querySelector("img");
   if(!wrap || !foto) return;
 
-  var LADO = 178, N = 32, paso = LADO / N;
+  var LADO = 178, N = 32, paso = LADO / N, pista = null;
   var L_OFF = LADO * 0.12, L_TAM = LADO * 0.76;   // mismo 12% / 76% que .logo-final
 
   function rebanadaFoto(p){
@@ -295,6 +300,10 @@
     nitido.className = "logo-final"; nitido.alt = ""; nitido.src = LOGO;
     wrap.appendChild(nitido);
     wrap.classList.add("en-reposo");
+    pista = document.createElement("p");
+    pista.className = "foto-pista";
+    pista.textContent = "Toca para ver el logo";
+    wrap.parentNode.insertBefore(pista, wrap.nextSibling);
     destino(piezas, caja);
   }
 
@@ -343,6 +352,7 @@
       enLogo = !enLogo;
       if(fundido){ clearTimeout(fundido); fundido = null; }
       wrap.classList.toggle("es-logo", enLogo);
+      if(pista) pista.textContent = enLogo ? "Toca para ver la foto" : "Toca para ver el logo";
       if(enLogo){
         wrap.classList.remove("en-reposo");
         foto.style.visibility = "hidden";
@@ -378,6 +388,7 @@
     wrap.setAttribute("tabindex", "0");
     wrap.setAttribute("aria-label", "Foto. Toca para ver el logo de Fyware");
     wrap.addEventListener("click", alternar);
+    if(pista) pista.addEventListener("click", alternar);
     wrap.addEventListener("keydown", function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); alternar(); } });
   }
 
