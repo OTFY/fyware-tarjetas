@@ -171,7 +171,6 @@
                 background-color .45s ease, opacity .4s ease;
     will-change: transform;
   }
-  .photo-wrap.es-logo .mosaico-foto b { background-image: none; background-color: #ffffff; }
   .photo-wrap img.logo-final {
     position: absolute; left: 12%; top: 12%; width: 76%; height: 76%;
     object-fit: contain; opacity: 0; pointer-events: none;
@@ -264,6 +263,18 @@
   if(!wrap || !foto) return;
 
   var LADO = 178, N = 32, paso = LADO / N;
+  var L_OFF = LADO * 0.12, L_TAM = LADO * 0.76;   // mismo 12% / 76% que .logo-final
+
+  function rebanadaFoto(p){
+    p.el.style.backgroundImage = 'url("img/carlos.jpg")';
+    p.el.style.backgroundSize = LADO + "px " + LADO + "px";
+    p.el.style.backgroundPosition = (-p.fx).toFixed(2) + "px " + (-p.fy).toFixed(2) + "px";
+  }
+  function rebanadaLogo(p){
+    p.el.style.backgroundImage = "url(" + LOGO + ")";
+    p.el.style.backgroundSize = L_TAM.toFixed(2) + "px " + L_TAM.toFixed(2) + "px";
+    p.el.style.backgroundPosition = (L_OFF - p.lx).toFixed(2) + "px " + (L_OFF - p.ly).toFixed(2) + "px";
+  }
 
   function armar(){
     var caja = document.createElement("div"), piezas = [], x, y;
@@ -293,8 +304,8 @@
       var celdas = [];
       try{
         var c = document.createElement("canvas"); c.width = c.height = N;
-        var cx = c.getContext("2d"), m = Math.round(N * 0.12);
-        cx.drawImage(img, m, m, N - 2 * m, N - 2 * m);
+        var cx = c.getContext("2d"), m = N * 0.12;
+        cx.drawImage(img, m, m, N * 0.76, N * 0.76);
         var d = cx.getImageData(0, 0, N, N).data;
         for(var i = 0; i < N * N; i++){
           if(d[i * 4 + 3] > 110) celdas.push([i % N, Math.floor(i / N)]);
@@ -346,10 +357,12 @@
             p.el.style.opacity = "0";
             p.el.style.transform = "translate(" + p.fx.toFixed(2) + "px," + p.fy.toFixed(2) + "px) scale(.15)";
           }else{
+            rebanadaLogo(p);
             p.el.style.transform = "translate(" + p.lx.toFixed(2) + "px," + p.ly.toFixed(2) + "px)";
           }
         }else{
           p.el.style.opacity = "";
+          rebanadaFoto(p);
           p.el.style.transform = "translate(" + p.fx.toFixed(2) + "px," + p.fy.toFixed(2) + "px)";
         }
       }
