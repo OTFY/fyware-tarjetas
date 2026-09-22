@@ -185,10 +185,54 @@
   @media (prefers-reduced-motion: reduce) {
     .photo-wrap, .mosaico-foto b { transition: none; }
   }
+
+  /* ---- Panel de QR ---- */
+  .card { position: relative; }
+  .card-tool { position: absolute; top: 14px; right: 14px; z-index: 5;
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: var(--muted);
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; touch-action: manipulation;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .card-tool:hover { color: var(--text); border-color: rgba(255,255,255,.3); }
+  .scrim { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.62);
+    display: flex; align-items: center; justify-content: center; padding: 18px;
+    opacity: 0; transition: opacity .2s ease; }
+  .scrim.open { opacity: 1; }
+  .scrim[hidden] { display: none; }
+  .sheet { position: relative; width: min(360px, 94vw); background: var(--panel);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 24px 22px 18px;
+    text-align: center; color: var(--text); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .sheet h2 { margin: 0 0 6px; font-size: 18px; font-weight: 800; }
+  .sheet .sub { margin: 0 0 16px; font-size: 13px; color: var(--muted); }
+  .closex { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.12); background: transparent; color: var(--muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; }
+  .qrframe { display: inline-block; padding: 13px; background: #ffffff; border-radius: 14px; line-height: 0;
+    transition: background-color .45s ease; }
+  .qrframe.es-logo { background: #111111; }
+  .qrframe canvas { width: 168px !important; height: 168px !important; display: block; }
+  .mosaico { position: relative; cursor: pointer; line-height: 0; touch-action: manipulation; }
+  .mosaico b { position: absolute; left: 0; top: 0; background: #14171B;
+    transition: transform .8s cubic-bezier(.22,.68,.24,1), background-color .45s ease, opacity .4s ease; }
+  .qrframe.es-logo .mosaico b { background: #ffffff; }
+  .qrhint { margin: 10px 0 0; font-size: 11px; color: var(--muted); cursor: pointer; touch-action: manipulation;
+    user-select: none; -webkit-user-select: none; }
+  .linkbox { display: block; margin: 14px 0 0; padding: 10px 12px; background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 10px; font-size: 11.5px; color: var(--muted);
+    word-break: break-all; line-height: 1.45; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .stack { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .stack .btn2 { width: 100%; padding: 11px 14px; border-radius: 12px; font: inherit; font-weight: 700; font-size: 14px;
+    cursor: pointer; border: 1px solid rgba(255,255,255,.12); background: transparent; color: var(--text); }
+  .stack .btn2.primary { background: var(--accent); border-color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { .mosaico b, .qrframe, .scrim { transition: none; } }
 </style>
 </head>
 <body>
   <main class="card">
+    <button class="card-tool" id="tool-open" type="button" aria-label="Compartir tarjeta y ver QR">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3zm5 0h3v3h-3v-3z"/></svg>
+      <span>Compartir</span>
+    </button>
     <div class="photo-wrap">
       <img src="img/jaime.png" alt="Foto de Jaime Dodero">
     </div>
@@ -250,11 +294,221 @@
       </a>
     </div>
 
+  <div class="scrim" id="scrim" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <button class="closex" id="tool-close" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <h2 id="sheet-title">Comparte tu tarjeta</h2>
+      <p class="sub">Quien escanee este código abre tu tarjeta y puede guardar tu contacto.</p>
+      <div class="qrframe" id="qrbox"></div>
+      <code class="linkbox" id="linktext">otfy.github.io/fyware-tarjetas/jaime/</code>
+      <div class="stack">
+        <button class="btn2 primary" id="copy-link" type="button">Copiar liga</button>
+        <button class="btn2" id="dl-png" type="button">Descargar QR (PNG)</button>
+        <button class="btn2" id="tool-native" type="button" hidden>Compartir</button>
+      </div>
+    </div>
+  </div>
+
     <footer>
       <img src="img/fy-logo.png" alt="Fyware">
       <p><a href="https://www.fyware.com/es/?utm_source=tarjeta-digital&amp;utm_medium=qr&amp;utm_campaign=credenciales-equipo-2026&amp;utm_content=jaime-dodero" target="_blank" rel="noopener">fyware.com</a> | Prepared for reality</p>
     </footer>
   </main>
+<script src="qr-code-styling.js"></script>
+<script>
+(function(){
+  // ---- Panel de QR: el codigo como mosaico que se vuelve el isotipo ----
+  var CARD_URL = "https://otfy.github.io/fyware-tarjetas/jaime/";
+  var LOGO_QR = document.querySelector('script[data-logo]') ? "" : null; // se resuelve abajo
+  var $ = function(id){ return document.getElementById(id); };
+  var scrim = $("scrim"), openBtn = $("tool-open"), closeBtn = $("tool-close");
+  var qr = null, qrDescarga = null, qrReady = false;
+
+  // el isotipo blanco ya vive en la pagina como data URI (variable LOGO de la foto);
+  // aqui se toma del <img class="logo-final"> cuando exista, o del <b> de respaldo
+  function logoDataURI(){
+    var img = document.querySelector(".logo-final");
+    return img ? img.getAttribute("src") : "";
+  }
+
+  function opcionesQR(conImagen){
+    var o = {
+      width:520, height:520, type:"canvas", data:CARD_URL, margin:0,
+      qrOptions:{ errorCorrectionLevel:"H" },
+      dotsOptions:{ type:"square", color:"#14171B" },
+      cornersSquareOptions:{ type:"square", color:"#e83833" },
+      cornersDotOptions:{ type:"square", color:"#14171B" },
+      backgroundOptions:{ color:"#ffffff" }
+    };
+    if(conImagen){
+      o.image = "img/fy-logo.png";
+      o.imageOptions = { margin:6, imageSize:.22, hideBackgroundDots:true };
+    }
+    return o;
+  }
+
+  function esperarCanvas(cont, listo){
+    var n = 0;
+    (function mirar(){
+      var cv = cont.querySelector("canvas");
+      if(cv) listo(cv); else if(++n > 40) listo(null); else setTimeout(mirar, 60);
+    })();
+  }
+  function cuentaModulos(m){ var k = 0; for(var i = 0; i < m.c.length; i++) k += m.c[i]; return k; }
+  function esperarReticula(cv, listo){
+    var intentos = 0, previa = null;
+    (function mirar(){
+      var m = leerReticula(cv);
+      if(m){
+        var k = cuentaModulos(m);
+        if(previa && previa.n === m.n && previa.k === k){ listo(m); return; }
+        previa = { n:m.n, k:k };
+      }
+      if(++intentos > 40){ listo(null); return; }
+      setTimeout(mirar, 60);
+    })();
+  }
+  // Ubica la caja oscura del codigo (la libreria deja franja blanca aunque margin sea 0),
+  // mide el ojo superior izquierdo (7 modulos) y muestrea cada celda.
+  function leerReticula(cv){
+    try{
+      var W = cv.width, d = cv.getContext("2d").getImageData(0, 0, W, W).data;
+      function oscuro(x, y){ var i = (y * W + x) * 4; return (d[i] + d[i+1] + d[i+2]) / 3 < 150; }
+      var x0 = W, y0 = W, x1 = -1, y1 = -1, x, y;
+      for(y = 0; y < W; y++) for(x = 0; x < W; x++){ if(!oscuro(x, y)) continue; if(x < x0) x0 = x; if(y < y0) y0 = y; if(x > x1) x1 = x; if(y > y1) y1 = y; }
+      if(x1 < 0) return null;
+      var ancho = x1 - x0 + 1, corrida = 0;
+      while(x0 + corrida <= x1 && oscuro(x0 + corrida, y0 + 2)) corrida++;
+      if(corrida < 7) return null;
+      var modulo = corrida / 7, N = Math.round(ancho / modulo);
+      if(N < 21 || N > 177) return null;
+      var celdas = new Array(N * N);
+      for(y = 0; y < N; y++) for(x = 0; x < N; x++){
+        var px = Math.min(W - 1, x0 + Math.floor((x + 0.5) * modulo)), py = Math.min(W - 1, y0 + Math.floor((y + 0.5) * modulo));
+        celdas[y * N + x] = oscuro(px, py) ? 1 : 0;
+      }
+      return { n:N, c:celdas };
+    }catch(e){ return null; }
+  }
+
+  function armarMosaico(m){
+    var LADO = 168, N = m.n, paso = LADO / N, piezas = [], x, y;
+    var caja = document.createElement("div");
+    caja.className = "mosaico"; caja.style.width = caja.style.height = LADO + "px";
+    for(y = 0; y < N; y++) for(x = 0; x < N; x++){
+      if(!m.c[y * N + x]) continue;
+      var b = document.createElement("b");
+      b.style.width = b.style.height = (paso + 0.6).toFixed(2) + "px";
+      b.style.transform = "translate(" + (x * paso).toFixed(2) + "px," + (y * paso).toFixed(2) + "px)";
+      caja.appendChild(b); piezas.push({ el:b, qx:x * paso, qy:y * paso });
+    }
+    var marco = $("qrbox"); marco.innerHTML = ""; marco.appendChild(caja);
+    var pista = document.createElement("p"); pista.className = "qrhint"; pista.textContent = "Toca el código para ver el logo";
+    marco.parentNode.insertBefore(pista, marco.nextSibling);
+    destinoLogo(N, paso, piezas, caja, pista, marco);
+  }
+  // El isotipo (blanco sobre transparente) se rasteriza a la reticula del QR: celdas con alfa.
+  function destinoLogo(N, paso, piezas, caja, pista, marco){
+    var uri = logoDataURI(); if(!uri) return;
+    var img = new Image();
+    img.onload = function(){
+      var celdas = [];
+      try{
+        var c = document.createElement("canvas"); c.width = c.height = N;
+        var cx = c.getContext("2d"), m = N * 0.06;
+        cx.drawImage(img, m, m, N - 2 * m, N - 2 * m);
+        var d = cx.getImageData(0, 0, N, N).data;
+        for(var i = 0; i < N * N; i++){ if(d[i * 4 + 3] > 110) celdas.push([i % N, Math.floor(i / N)]); }
+      }catch(e){ return; }
+      if(celdas.length < 20) return;
+      emparejar(piezas, celdas, paso);
+      activarMosaico(piezas, caja, pista, marco);
+    };
+    img.src = uri;
+  }
+  function emparejar(piezas, celdas, paso){
+    if(celdas.length > piezas.length){
+      var salto = celdas.length / piezas.length, rec = [];
+      for(var k = 0; k < piezas.length; k++) rec.push(celdas[Math.floor(k * salto)]);
+      celdas = rec;
+    }
+    var salto2 = piezas.length / celdas.length;
+    for(var i = 0; i < piezas.length; i++) piezas[i].sobra = true;
+    for(var j = 0; j < celdas.length; j++){
+      var p = piezas[Math.min(piezas.length - 1, Math.floor(j * salto2))];
+      p.sobra = false; p.lx = celdas[j][0] * paso; p.ly = celdas[j][1] * paso;
+    }
+  }
+  function activarMosaico(piezas, caja, pista, marco){
+    var enLogo = false, C = 84;
+    function alternar(){
+      enLogo = !enLogo;
+      pista.textContent = enLogo ? "Toca para volver al QR" : "Toca el código para ver el logo";
+      marco.classList.toggle("es-logo", enLogo);
+      for(var i = 0; i < piezas.length; i++){
+        var p = piezas[i], dx = p.qx - C, dy = p.qy - C;
+        p.el.style.transitionDelay = Math.round(Math.sqrt(dx * dx + dy * dy) * 2.4) + "ms";
+        if(enLogo){
+          if(p.sobra){ p.el.style.opacity = "0"; p.el.style.transform = "translate(" + p.qx.toFixed(2) + "px," + p.qy.toFixed(2) + "px) scale(.15)"; }
+          else { p.el.style.transform = "translate(" + p.lx.toFixed(2) + "px," + p.ly.toFixed(2) + "px)"; }
+        }else{
+          p.el.style.opacity = "";
+          p.el.style.transform = "translate(" + p.qx.toFixed(2) + "px," + p.qy.toFixed(2) + "px)";
+        }
+      }
+    }
+    caja.addEventListener("click", alternar);
+    pista.addEventListener("click", alternar);
+  }
+
+  function buildQR(){
+    if(qrReady) return; qrReady = true;
+    try{
+      qr = new QRCodeStyling(opcionesQR(false));
+      var oculto = document.createElement("div");
+      oculto.style.cssText = "position:absolute;left:-9999px;top:0;width:520px;height:520px";
+      document.body.appendChild(oculto);
+      qr.append(oculto);
+      esperarCanvas(oculto, function(cv){
+        if(!cv){ $("qrbox").innerHTML = ""; qr.append($("qrbox")); return; }
+        esperarReticula(cv, function(m){ if(m) armarMosaico(m); else $("qrbox").appendChild(cv); });
+      });
+    }catch(e){
+      $("qrbox").innerHTML = '<div style="width:168px;height:168px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#747B84;text-align:center;padding:12px">QR no disponible. Copia la liga.</div>';
+      $("dl-png").disabled = true; $("dl-png").textContent = "QR no disponible";
+    }
+  }
+  function openSheet(){
+    buildQR(); scrim.hidden = false; void scrim.offsetHeight; scrim.classList.add("open");
+    document.body.style.overflow = "hidden"; closeBtn.focus();
+  }
+  function closeSheet(){
+    scrim.classList.remove("open"); document.body.style.overflow = "";
+    openBtn.focus(); setTimeout(function(){ if(!scrim.classList.contains("open")) scrim.hidden = true; }, 220);
+  }
+  openBtn.addEventListener("click", openSheet);
+  closeBtn.addEventListener("click", closeSheet);
+  scrim.addEventListener("click", function(e){ if(e.target === scrim) closeSheet(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !scrim.hidden) closeSheet(); });
+
+  $("copy-link").addEventListener("click", function(){
+    var b = this, ok = function(){ b.textContent = "Liga copiada"; setTimeout(function(){ b.textContent = "Copiar liga"; }, 1800); };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(CARD_URL).then(ok, ok); }
+    else { var r = document.createRange(); r.selectNodeContents($("linktext")); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); try{ document.execCommand("copy"); }catch(e){} ok(); }
+  });
+  // El PNG que se baja lleva el isotipo gris al centro: es el que se imprime.
+  $("dl-png").addEventListener("click", function(){
+    if(!qrDescarga) qrDescarga = new QRCodeStyling(opcionesQR(true));
+    if(qrDescarga.download) qrDescarga.download({ name:"Jaime-Dodero-Fyware-QR", extension:"png" });
+  });
+  if(navigator.share){
+    var ns = $("tool-native"); ns.hidden = false;
+    ns.addEventListener("click", function(){ navigator.share({ title:document.title, url:CARD_URL }).catch(function(){}); });
+  }
+})();
+</script>
 <script>
 (function(){
   // Aviso de apertura a la hoja de conteo: solo fecha, hora y cual tarjeta.
