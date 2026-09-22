@@ -187,6 +187,14 @@
   }
 
   /* ---- Panel de QR ---- */
+
+  .card { position: relative; }
+  .card-tool { position: absolute; top: 14px; right: 14px; z-index: 5;
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06); color: var(--muted);
+    font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; touch-action: manipulation;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+  .card-tool:hover { color: var(--text); border-color: rgba(255,255,255,.3); }
   button.btn { width: 100%; font: inherit; text-align: left; cursor: pointer; color: inherit; }
   .scrim { position: fixed; inset: 0; z-index: 40; background: rgba(0,0,0,.62);
     display: flex; align-items: center; justify-content: center; padding: 18px;
@@ -223,6 +231,10 @@
 </head>
 <body>
   <main class="card">
+    <button class="card-tool" id="tool-open" type="button" aria-label="Compartir tarjeta y ver QR">
+      <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3zm5 0h3v3h-3v-3z"/></svg>
+      <span>Compartir</span>
+    </button>
     <div class="photo-wrap">
       <img src="img/aaron.png" alt="Foto de Aaron Castro">
     </div>
@@ -238,12 +250,6 @@
         </span>
         <span class="label">Guardar contacto<small>Agrega mis datos a tu teléfono</small></span>
       </a>
-      <button class="btn" id="tool-open" type="button">
-        <span class="ico">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3zm5 0h3v3h-3v-3z"/></svg>
-        </span>
-        <span class="label">Código QR<small>Muéstralo, compártelo o descárgalo</small></span>
-      </button>
 
       <a class="btn btn-wa" href="https://wa.me/5214427483658?text=Hola%20Aaron%2C%20escane%C3%A9%20tu%20QR%20y%20me%20gustar%C3%ADa%20platicar%20contigo." target="_blank" rel="noopener">
         <span class="ico">
