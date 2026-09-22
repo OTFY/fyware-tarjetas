@@ -214,7 +214,12 @@
   .mosaico { position: relative; cursor: pointer; line-height: 0; touch-action: manipulation; }
   .mosaico b { position: absolute; left: 0; top: 0; background: #14171B;
     transition: transform .8s cubic-bezier(.22,.68,.24,1), background-color .45s ease, opacity .4s ease; }
+  .qrframe { position: relative; }
   .qrframe.es-logo .mosaico b { background: #ffffff; }
+  .qr-logo-final { position: absolute; left: 13px; top: 13px; width: 168px; height: 168px; padding: 10px;
+    box-sizing: border-box; object-fit: contain; opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+  .qrframe.logo-nitido .qr-logo-final { opacity: 1; }
+  .qrframe.logo-nitido .mosaico b { opacity: 0 !important; transition-delay: 0ms !important; }
   .qrhint { margin: 10px 0 0; font-size: 11px; color: var(--muted); cursor: pointer; touch-action: manipulation;
     user-select: none; -webkit-user-select: none; }
   .linkbox { display: block; margin: 14px 0 0; padding: 10px 12px; background: rgba(255,255,255,.05);
@@ -413,6 +418,8 @@
       caja.appendChild(b); piezas.push({ el:b, qx:x * paso, qy:y * paso });
     }
     var marco = $("qrbox"); marco.innerHTML = ""; marco.appendChild(caja);
+    var nitido = document.createElement("img"); nitido.className = "qr-logo-final"; nitido.alt = "";
+    nitido.src = logoDataURI(); marco.appendChild(nitido);
     var pista = document.createElement("p"); pista.className = "qrhint"; pista.textContent = "Toca el código para ver el logo";
     marco.parentNode.insertBefore(pista, marco.nextSibling);
     destinoLogo(N, paso, piezas, caja, pista, marco);
@@ -450,19 +457,36 @@
     }
   }
   function activarMosaico(piezas, caja, pista, marco){
-    var enLogo = false, C = 84;
+    var enLogo = false, C = 84, fundido = null, URI = logoDataURI();
+    var L_OFF = 168 * 0.06, L_TAM = 168 - 2 * L_OFF;   // mismo 6% con que se dibujo la mascara
+    var quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function alternar(){
       enLogo = !enLogo;
+      if(fundido){ clearTimeout(fundido); fundido = null; }
       pista.textContent = enLogo ? "Toca para volver al QR" : "Toca el código para ver el logo";
       marco.classList.toggle("es-logo", enLogo);
+      if(enLogo){
+        fundido = setTimeout(function(){ marco.classList.add("logo-nitido"); }, quieto ? 0 : 1150);
+      }else{
+        marco.classList.remove("logo-nitido");
+      }
       for(var i = 0; i < piezas.length; i++){
         var p = piezas[i], dx = p.qx - C, dy = p.qy - C;
         p.el.style.transitionDelay = Math.round(Math.sqrt(dx * dx + dy * dy) * 2.4) + "ms";
         if(enLogo){
           if(p.sobra){ p.el.style.opacity = "0"; p.el.style.transform = "translate(" + p.qx.toFixed(2) + "px," + p.qy.toFixed(2) + "px) scale(.15)"; }
-          else { p.el.style.transform = "translate(" + p.lx.toFixed(2) + "px," + p.ly.toFixed(2) + "px)"; }
+          else {
+            // la pieza viaja con el pedazo exacto del isotipo que le toca en su destino
+            p.el.style.backgroundColor = "transparent";
+            p.el.style.backgroundImage = "url(" + URI + ")";
+            p.el.style.backgroundSize = L_TAM.toFixed(2) + "px " + L_TAM.toFixed(2) + "px";
+            p.el.style.backgroundPosition = (L_OFF - p.lx).toFixed(2) + "px " + (L_OFF - p.ly).toFixed(2) + "px";
+            p.el.style.transform = "translate(" + p.lx.toFixed(2) + "px," + p.ly.toFixed(2) + "px)";
+          }
         }else{
           p.el.style.opacity = "";
+          p.el.style.backgroundColor = ""; p.el.style.backgroundImage = "";
+          p.el.style.backgroundSize = ""; p.el.style.backgroundPosition = "";
           p.el.style.transform = "translate(" + p.qx.toFixed(2) + "px," + p.qy.toFixed(2) + "px)";
         }
       }
