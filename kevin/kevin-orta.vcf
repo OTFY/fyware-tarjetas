@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Orta;Kevin;;;
+FN:Kevin Orta
+ORG:Fyware
+EMAIL;TYPE=INTERNET,WORK:kevin.orta@fyware.com
+URL:https://www.fyware.com/es/?utm_source=tarjeta-digital&utm_medium=vcard&
+ utm_campaign=credenciales-equipo-2026&utm_content=kevin-orta
+item1.URL:https://www.linkedin.com/company/fyware
+item1.X-ABLabel:LinkedIn
+NOTE:Soluciones inmersivas VR y AR para la industria.
+END:VCARD
